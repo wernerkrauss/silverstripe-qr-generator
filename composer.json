@@ -1,0 +1,31 @@
+{
+    "name": "wernerkrauss/silverstripe-qr-generator",
+    "description": "A module that renders a QR-Code for the current Page / DataObject",
+    "type": "silverstripe-module",
+    "keywords": [
+        "silverstripe",
+        "extension"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Werner Krauß",
+            "email": "werner.krauss@netwerkstatt.at",
+            "homepage": "http://www.netwerkstatt.at",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/wernerkrauss/silverstripe-qr-generator/issues"
+    },
+    "require": {
+        "silverstripe/framework": "^3.6.0",
+        "silverstripe/cms": "^3.6.0",
+        "endroid/qrcode": "^2.2.3"
+    },
+    "suggest": {
+    },
+    "extra": {
+        "installer-name": "qr-generator"
+    }
+}

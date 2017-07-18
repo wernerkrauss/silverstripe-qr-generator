@@ -1,0 +1,9 @@
+---
+Name: qr-generator
+After:
+  - 'framework/*'
+---
+
+SiteTree:
+  extensions:
+    - QrGeneratorExtension
