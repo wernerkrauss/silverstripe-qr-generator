@@ -82,19 +82,20 @@ class QrGeneratorExtension extends DataExtension
     private function getQrCodeName()
     {
         $qrpath = '/qr/';
-        $base = implode('-', [
-                'qr',
-                $this->owner->ClassName,
-                $this->owner->Title,
-                $this->owner->ID,
-            ]) . '.png';
-
 
         //check if $path exists in assets
         if (!is_dir(ASSETS_PATH . $qrpath)) {
             mkdir(ASSETS_PATH . $qrpath);
         }
-        return $qrpath . $base;
+
+        $base = URLSegmentFilter::create()->filter(implode('-', [
+            'qr',
+            $this->owner->ClassName,
+            $this->owner->Title,
+            $this->owner->ID,
+        ]));
+
+        return $qrpath . $base . '.png';
     }
 
     /**
