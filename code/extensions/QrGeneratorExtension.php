@@ -81,7 +81,7 @@ class QrGeneratorExtension extends DataExtension
      */
     private function getQrCodeName()
     {
-        $path = '/';
+        $qrpath = '/qr/';
         $base = implode('-', [
                 'qr',
                 $this->owner->ClassName,
@@ -89,7 +89,12 @@ class QrGeneratorExtension extends DataExtension
                 $this->owner->ID,
             ]) . '.png';
 
-        return $path . $base;
+
+        //check if $path exists in assets
+        if (!is_dir(ASSETS_PATH . $qrpath)) {
+            mkdir(ASSETS_PATH . $qrpath);
+        }
+        return $qrpath . $base;
     }
 
     /**
