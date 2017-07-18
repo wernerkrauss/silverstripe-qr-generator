@@ -3,8 +3,43 @@
 use Endroid\QrCode\ErrorCorrectionLevel;
 use Endroid\QrCode\QrCode;
 
+/**
+ * Class QrGeneratorExtension
+ *
+ * @property SiteTree|QrGeneratorExtension $owner
+ */
 class QrGeneratorExtension extends DataExtension
 {
+    public function updateCMSFields(FieldList $fields)
+    {
+        if (!$this->owner->isInDB()) {
+            return;
+        }
+
+        $fields->addFieldsToTab('Root.QR', [
+            HeaderField::create('QRHeading', _t('QrGeneratorExtension.Title', 'QR-Code'), 2),
+            LiteralField::create('QRContent',
+                '<p><img src="data:image/png;base64,' . $this->getQRCodeBase64() . '" /></p>'),
+            LiteralField::create('QRDownload', '<p><a href="' . $this->getQRCodeURL() . '" target="_blank">'
+                . _t('QrGeneratorExtension.Download', 'Download')
+                . '</a></p>')
+        ]);
+
+    }
+
+
+    /**
+     * for inline images
+     *
+     * <img alt="Scan me" src="data:image/png;base64,$QRCodeBase64" />
+     *
+     * @return string
+     */
+    public function getQRCodeBase64()
+    {
+        return base64_encode($this->generateQRCode());
+    }
+
     /**
      * Very simple proof of concept for now.
      *
@@ -35,18 +70,6 @@ class QrGeneratorExtension extends DataExtension
         $qr->writeFile(ASSETS_PATH . $this->getQrCodeName());
 
         return $qr->writeString();
-    }
-
-    /**
-     * for inline images
-     *
-     * <img alt="Scan me" src="data:image/png;base64,$QRCodeBase64" />
-     *
-     * @return string
-     */
-    public function getQRCodeBase64()
-    {
-        return base64_encode($this->generateQRCode());
     }
 
     /**
