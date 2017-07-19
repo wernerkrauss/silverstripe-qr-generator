@@ -93,6 +93,7 @@ class QrGeneratorExtension extends DataExtension
             $this->owner->ClassName,
             $this->owner->Title,
             $this->owner->ID,
+            substr(md5($this->getQrCodeContent()), 0, 5 )
         ]));
 
         return $qrpath . $base . '.png';
